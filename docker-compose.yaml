@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/shopping_list_db
+    restart: always
+
+#  frontend:
+#    build:
+#      context: ./frontend
+#    container_name: frontend
+#    ports:
+#      - "3000:80"  # Exposes frontend on localhost:3000
+#    depends_on:
+#      - backend
+#    restart: always
+
+volumes:
+  mongo-data:
