@@ -17,9 +17,16 @@ public class CorsGlobalConfig {
         config.addAllowedOrigin("http://80.211.200.112:3000");// React dev server
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.setAllowCredentials(true); // this is important if you send cookies
+        config.addAllowedOriginPattern("*"); // more flexible than addAllowedOrigin()
+
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return new CorsWebFilter(source);
+
+
+
+
     }
 }
