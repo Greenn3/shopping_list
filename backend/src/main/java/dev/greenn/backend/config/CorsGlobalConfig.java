@@ -13,7 +13,8 @@ public class CorsGlobalConfig {
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000"); // React dev server
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://80.211.200.112:3000");// React dev server
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
