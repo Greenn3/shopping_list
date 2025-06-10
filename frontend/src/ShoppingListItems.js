@@ -9,7 +9,7 @@ function ShoppingListItems() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/items/${id}`)
+        axios.get(`http://backend:8080/items/${id}`)
             .then(response => setItems(response.data))
             .catch(error => console.error("Error fetching items:", error));
     }, [id]);
