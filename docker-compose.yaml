@@ -22,15 +22,15 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/shopping_list_db
     restart: always
 
-#  frontend:
-#    build:
-#      context: ./frontend
-#    container_name: frontend
-#    ports:
-#      - "3000:80"  # Exposes frontend on localhost:3000
-#    depends_on:
-#      - backend
-#    restart: always
+ frontend:
+   build:
+     context: ./frontend
+   container_name: frontend
+   ports:
+     - "3000:80"  # Exposes frontend on localhost:3000
+   depends_on:
+     - backend
+   restart: always
 
 volumes:
   mongo-data:
