@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css"
+import axiosInstance from "./axiosInstance";
 
 function ShoppingListItems() {
     const { id } = useParams();
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/items/${id}`)
+        axiosInstance.get(`/items/${id}`)
             .then(response => setItems(response.data))
             .catch(error => console.error("Error fetching items:", error));
     }, [id]);
-
     return (
         // <div id="lists" className="cards-container">
         //     <h2>Shopping Lists</h2>

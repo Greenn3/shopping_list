@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./App.css"
+import axiosInstance from "./axiosInstance";
 
 function ShoppingLists() {
     const [lists, setLists] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/shoppingLists`)
-
+        axiosInstance.get(`/shoppingLists`)
             .then(response => setLists(response.data))
             .catch(error => console.error("Error fetching lists:", error));
     }, []);

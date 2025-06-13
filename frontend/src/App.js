@@ -4,6 +4,9 @@ import { Link, Routes, Route } from 'react-router-dom';
 import ShoppingLists from './ShoppingLists';
 import ShoppingListItems from './ShoppingListItems'; // if you need it later
 
+import { useEffect } from 'react';
+
+
 function App() {
     const { keycloak, initialized } = useKeycloak();
 
