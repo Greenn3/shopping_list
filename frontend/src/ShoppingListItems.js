@@ -9,7 +9,7 @@ function ShoppingListItems() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://80.211.200.112:8080/items/${id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/items/${id}`)
             .then(response => setItems(response.data))
             .catch(error => console.error("Error fetching items:", error));
     }, [id]);

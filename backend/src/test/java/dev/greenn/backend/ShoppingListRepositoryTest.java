@@ -22,6 +22,7 @@ public class ShoppingListRepositoryTest {
 
     @BeforeEach
     void cleanDb() {
+
         shoppingListRepository.deleteAll().block();
     }
 

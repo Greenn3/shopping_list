@@ -8,7 +8,8 @@ function ShoppingLists() {
     const [lists, setLists] = useState([]);
 
     useEffect(() => {
-        axios.get("http://80.211.200.112:8080/shoppingLists")
+        axios.get(`${process.env.REACT_APP_API_URL}/shoppingLists`)
+
             .then(response => setLists(response.data))
             .catch(error => console.error("Error fetching lists:", error));
     }, []);

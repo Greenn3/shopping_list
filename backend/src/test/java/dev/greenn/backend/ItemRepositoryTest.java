@@ -20,11 +20,13 @@ class ItemRepositoryTest {
     private ItemRepository itemRepository;
     @BeforeEach
     void cleanDb() {
+
         itemRepository.deleteAll().block();
     }
     @Test
     void findAllByListId_shouldReturnCorrectItems() {
         // Given
+
         String listId = "list-123";
 
         ShoppingListItem item1 = new ShoppingListItem();
