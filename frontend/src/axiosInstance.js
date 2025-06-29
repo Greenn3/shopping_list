@@ -9,6 +9,9 @@ axiosInstance.interceptors.request.use(
     (config) => {
         if (keycloak?.token) {
             config.headers.Authorization = `Bearer ${keycloak.token}`;
+            console.log(keycloak.tokenParsed.iss); // should match exactly
+            console.log("Token:", keycloak.token);
+            console.log("Token parsed:", keycloak.tokenParsed);
         }
         return config;
     },

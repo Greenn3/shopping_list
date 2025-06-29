@@ -22,14 +22,11 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .cors(Customizer.withDefaults())
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/shoppingLists").permitAll()
+                        .pathMatchers("/actuator/**").permitAll()
                         .anyExchange().authenticated()
                 )
-//                .authorizeExchange(exchanges -> exchanges
-//                        .pathMatchers("/actuator/**").permitAll()
-//                        .anyExchange().authenticated()
-//                )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()) // ✅ correct and future-proof
                 )

@@ -1,46 +1,41 @@
 // src/ShoppingListItems.js
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import "./App.css"
+//import "./App.css"
 import axiosInstance from "./axiosInstance";
 
-function ShoppingListItems() {
-    const { id } = useParams();
-    const [items, setItems] = useState([]);
+function ShoppingListItems({id, items, onItemDeleted}) {
 
-    useEffect(() => {
-        axiosInstance.get(`/items/${id}`)
-            .then(response => setItems(response.data))
-            .catch(error => console.error("Error fetching items:", error));
-    }, [id]);
+    const deleteItem = async (itemId) => {
+        console.log('🗑️ deleteList called with ID:', itemId); // ✅ debug
+
+        try {
+            await axiosInstance.delete(`/items/${itemId}`);
+
+            onItemDeleted(); // should be fetchLists
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+    };
     return (
-        // <div id="lists" className="cards-container">
-        //     <h2>Shopping Lists</h2>
-        //     <div className="cards-wrapper">
-        //
-        //         {lists.map(list => (
-        //             <Link to={`/list/${list.id}`}>
-        //                 <div key={list.id} className="card">
-        //
-        //                     <h3>{list.name}</h3>
-        //
-        //                 </div>
-        //             </Link>
-        //         ))}
-        //     </div>
-        // </div>
 
         <div id="items" className="cards-container">
             <h2>Items for List ID: {id}</h2>
            <div className="cards-wrapper">
                 {items.map(item => (
                     <div key={item.id} className="card">
-                        {item.name}
+                      <p> Nazwa: {item.name}</p>
+                        <p> Sklep:  {item.storeName}</p>
+                     <p>  Ilość: {item.amount}</p>
+                      <p> Cena:  {item.preferredPrice}</p>
+                        <button onClick={async (e) => {
+                            e.stopPropagation();
+                            if (window.confirm("Delete this item?")) {
+                                await deleteItem(item.id);
+                            }
+                        }}>🗑️</button>
                     </div>
                 ))}
            </div>
-            <Link to="/">← Back to Lists</Link>
         </div>
     );
 }
