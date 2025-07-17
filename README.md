@@ -1,35 +1,45 @@
-🛒 SyncCart
-Because shared shopping lists should cause fewer arguments, not more.
+# 🛒 SyncCart
 
-💡 What is SyncCart?
-SyncCart is a collaborative shopping list app built for people who like groceries and structure. Create lists, invite others, track items — and soon: split costs, store loyalty cards, and maybe even avoid that "who bought the milk?" moment.
+**Because shared shopping lists should cause fewer arguments, not more.**
 
-It’s a full-stack project that might be a bit overkill for a shopping list, but hey — when you're learning modern tech, go big or go boring.
+---
 
-🔧 Tech Stack
-Backend: Java, Spring Boot, WebFlux (reactive), MongoDB
+## 💡 What is SyncCart?
 
-Frontend: React + Axios
+SyncCart is a collaborative shopping list app built for people who like groceries *and* structure.  
+Create lists, invite others, track items — and soon: split costs, store loyalty cards, and maybe even avoid that *"who bought the milk?"* moment.
 
-Auth: Keycloak
+It’s a full-stack project that might be *a bit overkill* for a shopping list, but hey — when you're learning modern tech, go big or go boring.
 
-Infrastructure: Dockerized, with a public demo coming soon (hosted on a personal VPS)
+---
 
-🧠 Why so many moving parts?
-Yes, we know — a full-blown reactive backend, OAuth2, and Dockerized services might be a bit much for adding “tomatoes” to a list.
-But this project is not just about the groceries — it’s about learning modern technologies, building real-world architecture, and creating something that might actually be useful someday. Better than another "ToDoApp_v3_final_final_REAL.java", right?
+## 🔧 Tech Stack
 
-🧪 What's coming?
-💰 Expense tracking & cost sharing
+- **Backend:** Java, Spring Boot, WebFlux (reactive), MongoDB  
+- **Frontend:** React + Axios  
+- **Auth:** Keycloak  
+- **Infrastructure:** Dockerized, with a public demo coming soon (hosted on a personal VPS)
 
-🧾 Loyalty card storage
+---
 
-📊 Basic statistics (e.g., "You've bought cheese 16 times this month... are you okay?")
+## 🧠 Why so many moving parts?
 
-📱 Mobile-friendly UI
+Yes, we know — a full-blown reactive backend, OAuth2, and Dockerized services might be a bit much for adding “tomatoes” to a list.  
+But this project is not just about the groceries — it’s about **learning modern technologies**, **building real-world architecture**, and creating something that might *actually be useful* someday.  
+Better than another `ToDoApp_v3_final_final_REAL.java`, right?
 
-🚀 Public demo link (very soon!)
+---
 
-🛠️ Dev note
+## 🧪 What's coming?
+
+- 💰 Expense tracking & cost sharing  
+- 🧾 Loyalty card storage  
+- 📊 Basic statistics (e.g., *"You've bought cheese 16 times this month... are you okay?"*)  
+- 📱 Mobile-friendly UI  
+- 🚀 Public demo link (very soon!)
+
+---
+
+## 🛠️ Dev note
+
 Work in progress. Contributions, feedback, or shopping tips are welcome 😄
-
