@@ -9,28 +9,34 @@ services:
     volumes:
       - mongo-data:/data/db
     restart: always
+    networks:
+      - shopping-network
 
-#  backend:
-#    build:
-#      context: ./backend
-#    container_name: backend
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - mongodb
-#    environment:
-#      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/shopping_list_db
-#    restart: always
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/shopping_list_db
+    restart: always
+    networks:
+      - shopping-network
 
-#  frontend:
-#    build:
-#      context: ./frontend
-#    container_name: frontend
-#    ports:
-#      - "3000:80"  # Exposes frontend on localhost:3000
-#    depends_on:
-#      - backend
-#    restart: always
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - shopping-network
 
   keycloak-db:
     image: postgres:15
@@ -41,6 +47,8 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - keycloak-db:/var/lib/postgresql/data
+    networks:
+      - shopping-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
@@ -54,11 +62,18 @@ services:
       KC_DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /auth
     ports:
       - "8081:8080"
     depends_on:
       - keycloak-db
+    networks:
+      - shopping-network
 
 volumes:
   mongo-data:
   keycloak-db:
+
+networks:
+  shopping-network:
+    driver: bridge

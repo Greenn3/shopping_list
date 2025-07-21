@@ -36,7 +36,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000"); // frontend URL
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://frontend:80"); // Docker-internal name// frontend URL
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);

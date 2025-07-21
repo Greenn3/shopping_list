@@ -1,21 +1,20 @@
 import axios from 'axios';
-import keycloak from './keycloak'; // or however you expose it
+import keycloak from './keycloak';
 
-const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL, // or your VPS IP
+const baseURL =
+    window.location.hostname === 'localhost'
+        ? 'http://localhost:8080'
+        : 'http://backend:8080'; // działa w kontenerze
+
+const axiosInstance = axios.create({ baseURL });
+
+axiosInstance.interceptors.request.use((config) => {
+    if (keycloak?.token) {
+        config.headers.Authorization = `Bearer ${keycloak.token}`;
+        console.log("Token:", keycloak.token);
+        console.log("Token parsed:", keycloak.tokenParsed);
+    }
+    return config;
 });
-
-axiosInstance.interceptors.request.use(
-    (config) => {
-        if (keycloak?.token) {
-            config.headers.Authorization = `Bearer ${keycloak.token}`;
-            console.log(keycloak.tokenParsed.iss); // should match exactly
-            console.log("Token:", keycloak.token);
-            console.log("Token parsed:", keycloak.tokenParsed);
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
 
 export default axiosInstance;

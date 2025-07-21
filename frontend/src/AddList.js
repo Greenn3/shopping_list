@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from './axiosInstance';
+import {Card} from "@mui/material";
+
 
 export default function AddList({onListAdded}) {
     const [name, setName] = useState('');
@@ -18,6 +20,7 @@ export default function AddList({onListAdded}) {
     }
 
     return (
+<Card sx={{alignSelf:"center", justifySelf:"center", padding:"20px"}}>
 
     <form onSubmit={handleSubmit}>
         <input
@@ -29,5 +32,6 @@ export default function AddList({onListAdded}) {
         />
         <button type="submit">Add</button>
     </form>
+</Card>
 );
 }

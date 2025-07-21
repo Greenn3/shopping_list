@@ -6,13 +6,43 @@ import reportWebVitals from './reportWebVitals';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 import {BrowserRouter} from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#013e87",
+        },
+        secondary: {
+            main: "#2e74c9",
+        },
+    },
+    typography: {
+        h1: {
+            fontSize: "3rem",
+            fontWeight: 600,
+        },
+        h2: {
+            fontSize: "1.75rem",
+            fontWeight: 600,
+        },
+        h3: {
+            fontSize: "1.5rem",
+            fontWeight: 600,
+        },
+    },
+
+})
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ReactKeycloakProvider authClient={keycloak}>
         <BrowserRouter>
+            <ThemeProvider theme={theme}>
             <App />
+            </ThemeProvider>
         </BrowserRouter>
     </ReactKeycloakProvider>
 );

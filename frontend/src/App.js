@@ -10,8 +10,10 @@ import AddList from "./AddList";
 import axiosInstance from "./axiosInstance";
 // import "./App.css"
 import AddItem from "./AddItem";
-import Modal from "./Modal";
-import {Container, Typography} from "@mui/material";
+import {AppBar, Box, Button, Container, Dialog, Icon, Modal, Typography} from "@mui/material";
+import Top_header from "./TopHeader";
+import keycloak from "./keycloak";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 function App() {
@@ -19,7 +21,9 @@ function App() {
     const [isOpen, setIsOpen] = useState(false);
     const [lists, setLists] = useState([]);
     const [selectedListId, setSelectedListId] = useState(null);
+
     const [showListModal, setShowListModal] = useState(false);
+
     const [showItemModal, setShowItemModal] = useState(false);
 
 
@@ -88,37 +92,38 @@ const fetchItems = async () =>{
 
 
 
-    function Top_header () {
-        return(
-
-            <box sx={{ bgcolor: "blue", height:"30px", display:"flex" }}>
-               <Typography variant={"h3"}>The ultimate shopping list</Typography>
-               <Typography variant={"h4"}>Welcome, {keycloak.tokenParsed?.preferred_username}</Typography>
-                <button onClick={() => keycloak.logout()}>Logout</button>
-            </box>
-    );
-    }
 
 
     return (
-        <Container sx={{ bgcolor: "beige", height: "100%"}}>
+        <Container sx={{height: "100%"}}>
         <div>
-            <Top_header/>
-            <div>
+            <AppBar sx={{spacing:"10px"}}>
+                <Box sx={{ bgcolor: "skyblue", height:"100px", display:"flex" , textAlign:"center"}}>
+                    <ShoppingCartIcon/>
+                    <Typography variant={"h3"}>SyncCart</Typography>
+                <Typography variant={"h4"}>The ultimate shopping list</Typography>
+                <Typography variant={"h5"}>Welcome, {keycloak.tokenParsed?.preferred_username}</Typography>
+                <Button variant={"contained"} onClick={() => keycloak.logout()}>Logout</Button>
+            </Box>
+            </AppBar>
+            {/*<div>*/}
 
 
-                <button onClick={() => setShowListModal(true)}>➕ Add List</button>
+                <Button variant={"contained"} onClick={() => setShowListModal(true)}>➕ Add List</Button>
 
 
-            </div>
-            <button onClick={() => setIsOpen(true)}>Add list</button>
+            {/*</div>*/}
+            {/*<Button variant={"text"} onClick={() => setIsOpen(true)}>Add list</Button>*/}
             {showListModal && (
-                <Modal onClose={() => setShowListModal(false)}>
+                <Dialog onClose={() => setShowListModal(false)}
+            open={showListModal}
+
+                >
                     <AddList onListAdded={() => {
                         fetchLists();
                         setShowListModal(false);
                     }} />
-                </Modal>
+                </Dialog>
             )}
 
             <ShoppingLists lists={lists}
@@ -126,9 +131,9 @@ const fetchItems = async () =>{
                            selectedListId={selectedListId }
                            onListDeleted={fetchLists}
             />
-            <line>-------------------------------------------------------------------------------------------</line>
+
             {selectedListId && (
-                <button onClick={() => setShowItemModal(true)}>➕ Add Item</button>
+                <Button variant={"contained"} onClick={() => setShowItemModal(true)}>➕ Add Item</Button>
             )}
             {selectedListId && (
                 <ShoppingListItems id={selectedListId}
@@ -137,12 +142,14 @@ const fetchItems = async () =>{
                 />
             )}
             {showItemModal && selectedListId && (
-                <Modal onClose={() => setShowItemModal(false)}>
+                <Dialog onClose={() => setShowItemModal(false)}
+                open={showItemModal}
+                >
                     <AddItem id={selectedListId} onItemAdded={() => {
                         setShowItemModal(false);
                         fetchItems();
                     }}/>
-                </Modal>
+                </Dialog>
             )}
 
 

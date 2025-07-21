@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import axiosInstance from './axiosInstance';
+import {Card} from "@mui/material";
 
 
 export default function AddItem({id, onItemAdded}) {
@@ -31,7 +32,7 @@ export default function AddItem({id, onItemAdded}) {
     }
 
     return (
-
+<Card sx={{padding:"20px", justifySelf:"center"}}>
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
@@ -64,5 +65,6 @@ export default function AddItem({id, onItemAdded}) {
             <br></br>
             <button type="submit">Add</button>
         </form>
+</Card>
     );
 }

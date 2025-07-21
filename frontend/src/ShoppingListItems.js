@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 //import "./App.css"
 import axiosInstance from "./axiosInstance";
+import {Box, Button, Paper} from "@mui/material";
 
 function ShoppingListItems({id, items, onItemDeleted}) {
 
@@ -19,23 +20,22 @@ function ShoppingListItems({id, items, onItemDeleted}) {
     return (
 
         <div id="items" className="cards-container">
-            <h2>Items for List ID: {id}</h2>
-           <div className="cards-wrapper">
+            <Box  sx={{display:"flex"}} className="cards-wrapper">
                 {items.map(item => (
-                    <div key={item.id} className="card">
+                    <Paper elevation={3} sx={{width: "200px", margin:"10px"}} key={item.id} className="card">
                       <p> Nazwa: {item.name}</p>
                         <p> Sklep:  {item.storeName}</p>
                      <p>  Ilość: {item.amount}</p>
                       <p> Cena:  {item.preferredPrice}</p>
-                        <button onClick={async (e) => {
+                        <Button variant={"outlined"} onClick={async (e) => {
                             e.stopPropagation();
                             if (window.confirm("Delete this item?")) {
                                 await deleteItem(item.id);
                             }
-                        }}>🗑️</button>
-                    </div>
+                        }}>🗑️</Button>
+                    </Paper>
                 ))}
-           </div>
+           </Box>
         </div>
     );
 }
