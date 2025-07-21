@@ -1,10 +1,15 @@
 import axios from 'axios';
 import keycloak from './keycloak';
-
+//local
+// const baseURL =
+//     window.location.hostname === 'localhost'
+//         ? 'http://localhost:8080'
+//         : 'http://backend:8080'; // działa w kontenerze
+//for the server
 const baseURL =
     window.location.hostname === 'localhost'
         ? 'http://localhost:8080'
-        : 'http://backend:8080'; // działa w kontenerze
+        : 'http://80.211.200.112:8080'; // <- publiczny adres serwera lub IP
 
 const axiosInstance = axios.create({ baseURL });
 
