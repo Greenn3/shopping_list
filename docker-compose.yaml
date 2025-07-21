@@ -37,18 +37,18 @@ services:
     restart: always
     networks:
       - shopping-network
-
-  keycloak-db:
-    image: postgres:15
-    container_name: keycloak-db
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-    volumes:
-      - keycloak-db:/var/lib/postgresql/data
-    networks:
-      - shopping-network
+#
+#  keycloak-db:
+#    image: postgres:15
+#    container_name: keycloak-db
+#    environment:
+#      POSTGRES_DB: keycloak
+#      POSTGRES_USER: keycloak
+#      POSTGRES_PASSWORD: password
+#    volumes:
+#      - keycloak-db:/var/lib/postgresql/data
+#    networks:
+#      - shopping-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
@@ -73,7 +73,7 @@ services:
 
 volumes:
   mongo-data:
-  keycloak-db:
+#  keycloak-db:
 
 networks:
   shopping-network:
