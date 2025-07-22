@@ -12,8 +12,8 @@ const keycloak = new Keycloak({
     //         : 'http://80.211.200.112:8081/auth',
     url: 'https://80.211.200.112/auth',
 
-    realm: 'shopping-list',
-    clientId: 'frontend-app',
+    realm: 'sync-cart',
+    clientId: 'react-app',
 });
 
 export default keycloak;
