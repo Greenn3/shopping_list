@@ -59,6 +59,7 @@ services:
       - --https-certificate-key-file=/etc/x509/https/key.pem
       - --https-port=8443
       - --hostname=keycloak.80.211.200.112.nip.io
+      - --optimized
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: keycloak-db
