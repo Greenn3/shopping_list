@@ -10,7 +10,7 @@ import keycloak from './keycloak';
 //     window.location.hostname === 'localhost'
 //         ? 'http://localhost:8080'
 //         : 'http://80.211.200.112:8080'; // <- publiczny adres serwera lub IP
-const baseURL = 'https://80.211.200.112/sync-cart/api';
+const baseURL = 'https://80.211.200.112/api';
 
 const axiosInstance = axios.create({ baseURL });
 
