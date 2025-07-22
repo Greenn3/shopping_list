@@ -37,23 +37,27 @@ services:
     restart: always
     networks:
       - shopping-network
-#
-#  keycloak-db:
-#    image: postgres:15
-#    container_name: keycloak-db
-#    environment:
-#      POSTGRES_DB: keycloak
-#      POSTGRES_USER: keycloak
-#      POSTGRES_PASSWORD: password
-#    volumes:
-#      - keycloak-db:/var/lib/postgresql/data
-#    networks:
-#      - shopping-network
+
+  keycloak-db:
+    image: postgres:15
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - keycloak-db:/var/lib/postgresql/data
+    networks:
+      - shopping-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
-    command: start-dev
+    command:
+      - start
+      - --https-certificate-file=/etc/x509/https/cert.pem
+      - --https-certificate-key-file=/etc/x509/https/key.pem
+      - --https-port=8443
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: keycloak-db
@@ -62,18 +66,18 @@ services:
       KC_DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HTTP_RELATIVE_PATH: /auth
-      KEYCLOAK_FORCE_HTTPS: 'false'
+    volumes:
+      - /root/keycloak-ssl:/etc/x509/https:ro
     ports:
-      - "8081:8080"
-#    depends_on:
-#      - keycloak-db
+      - "8443:8443"
+    depends_on:
+      - keycloak-db
     networks:
       - shopping-network
 
 volumes:
   mongo-data:
-#  keycloak-db:
+  keycloak-db:
 
 networks:
   shopping-network:
