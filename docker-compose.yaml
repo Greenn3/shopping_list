@@ -4,8 +4,8 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
-    ports:
-      - "27018:27017"
+    expose:
+      - "27017"
     volumes:
       - mongo-data:/data/db
     restart: always
@@ -16,8 +16,8 @@ services:
     build:
       context: ./backend
     container_name: backend
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     depends_on:
       - mongodb
     environment:
@@ -30,50 +30,66 @@ services:
     build:
       context: ./frontend
     container_name: frontend
-    ports:
-      - "3000:80"
+    expose:
+      - "80"
     depends_on:
       - backend
     restart: always
     networks:
       - shopping-network
-#
-#  keycloak-db:
-#    image: postgres:15
-#    container_name: keycloak-db
-#    environment:
-#      POSTGRES_DB: keycloak
-#      POSTGRES_USER: keycloak
-#      POSTGRES_PASSWORD: password
-#    volumes:
-#      - keycloak-db:/var/lib/postgresql/data
-#    networks:
-#      - shopping-network
+
+  keycloak-db:
+    image: postgres:15
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: change-me
+    volumes:
+      - keycloak-db:/var/lib/postgresql/data
+    networks:
+      - shopping-network
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
-    command: start-dev
+    image: quay.io/keycloak/keycloak:24.0
+    command: start
+    depends_on:
+      - keycloak-db
     environment:
-      KC_DB: postgres
-      KC_DB_URL_HOST: keycloak-db
-      KC_DB_URL_DATABASE: keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HTTP_RELATIVE_PATH: /auth
-      KEYCLOAK_FORCE_HTTPS: 'false'
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: change-me
+      KC_DB_URL_DATABASE: keycloak
+      KC_HOSTNAME: 80.211.200.112
+      KC_PROXY: edge
+    expose:
+      - "8080"
+    networks:
+      - shopping-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
     ports:
-      - "8081:8080"
-#    depends_on:
-#      - keycloak-db
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - frontend
+      - backend
+      - keycloak
     networks:
       - shopping-network
 
 volumes:
   mongo-data:
-#  keycloak-db:
+  keycloak-db:
 
 networks:
   shopping-network:
