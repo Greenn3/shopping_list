@@ -66,6 +66,7 @@ services:
       KC_DB_URL_DATABASE: keycloak
       KC_HOSTNAME: 80.211.200.112
       KC_PROXY: edge
+      KC_HTTP_RELATIVE_PATH: /auth 
     expose:
       - "8080"
     networks:
