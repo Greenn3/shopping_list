@@ -59,13 +59,13 @@ services:
       - --https-certificate-key-file=/etc/x509/https/key.pem
       - --https-port=8443
       - --hostname=keycloak.80.211.200.112.nip.io
-      - --db=postgres
       - --db-url-host=keycloak-db
       - --db-url-port=5432
+      - --db-url-database=keycloak
       - --db-username=keycloak
       - --db-password=password
-      - --db-url-database=keycloak
       - --optimized
+
 
     volumes:
       - /root/keycloak-ssl:/etc/x509/https:ro
